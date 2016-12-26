@@ -28,7 +28,8 @@ FORCE_SCRIPT_NAME = djsettings.FORCE_SCRIPT_NAME
 OSQA_SKIN = djsettings.OSQA_DEFAULT_SKIN
 LANGUAGE_CODE = djsettings.LANGUAGE_CODE
 ONLINE_USERS = Setting('ONLINE_USERS', {})
-
+SPAM_WORDS = djsettings.SPAM_WORDS
+SPAM_THRESHOLD = djesettings.SPAM_THRESHOLD
 
 from basic import *
 from sidebar import *

@@ -446,6 +446,10 @@ class User(BaseModel, DjangoUser):
     def _pop_suspension_cache(self):
         self.__dict__.pop('_suspension_dencache_', None)
 
+    def suspend(self):
+        self.is_active = False
+        self.save()
+
     def is_suspended(self):
         if not self.is_active:
             suspension = self.suspension

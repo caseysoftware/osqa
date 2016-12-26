@@ -80,3 +80,19 @@ LANGUAGE_CODE = 'en'
 OSQA_DEFAULT_SKIN = 'default'
 
 DISABLED_MODULES = ['books', 'recaptcha', 'project_badges', 'stats']
+
+SPAM_WORDS = {
+    'download free':25,
+    'free download':25,
+    'prada':25,
+    'football':25,
+    'clans':50,
+    'lawsuit':50,
+    'credit score':100,
+    'clash of clans':100,
+    'nintendo':100,
+    'kabbalah':100,
+    'herpes':100,
+    'casino':100,
+}
+SPAM_THRESHOLD = 100

@@ -494,6 +494,10 @@ class Node(BaseModel, NodeContent):
         super(Node, self).delete(*args, **kwargs)
 
     def save(self, *args, **kwargs):
+        if self.is_spam():
+            self.author.suspend()
+            return False
+
         if not self.id:
             self.node_type = self.get_type()
             super(BaseModel, self).save(*args, **kwargs)
@@ -513,6 +517,19 @@ class Node(BaseModel, NodeContent):
                 self.tags = list(Tag.objects.filter(name__in=self.tagname_list()))
             else:
                 self.tags = []
+
+    def is_spam(self):
+        spam_words = settings.SPAM_WORDS
+        _body = self.body.lower()
+
+        total_score = 0
+        for (word, score) in spam_words.items():
+            if word in _body:
+                total_score += score
+            if total_score >= settings.SPAM_THRESHOLD:
+                return True
+
+        return False
 
     class Meta:
         app_label = 'forum'
