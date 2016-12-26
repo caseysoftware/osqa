@@ -3,6 +3,7 @@ import os.path
 
 import datetime
 
+from django.conf import settings as django_settings
 from django.core.urlresolvers import reverse
 from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_exempt
