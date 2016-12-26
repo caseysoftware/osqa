@@ -60,7 +60,7 @@ USERS_PAGE_SIZE = 35# refactor - move to some constants file
 @decorators.render('users/users.html', 'users', _('users'), weight=200)
 def users(request):
     suser = request.REQUEST.get('q', "")
-    users = User.objects.all()
+    users = User.objects.filter(is_active=True)
 
     if suser != "":
         users = users.filter(username__icontains=suser)
