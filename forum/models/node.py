@@ -5,6 +5,7 @@ import re
 from tag import Tag
 
 import markdown
+import logging
 from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext as _
 from django.utils.safestring import mark_safe
@@ -519,6 +520,7 @@ class Node(BaseModel, NodeContent):
                 self.tags = []
 
     def is_spam(self):
+        logger = logging.getLogger(__name__)
         spam_words = settings.SPAM_WORDS
         _body = self.body.lower()
 
@@ -527,6 +529,7 @@ class Node(BaseModel, NodeContent):
             if word in _body:
                 total_score += score
             if total_score >= settings.SPAM_THRESHOLD:
+                logger.error('about to delete post from -- ' + self.author.username)
                 return True
 
         return False
