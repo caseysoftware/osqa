@@ -497,6 +497,7 @@ class Node(BaseModel, NodeContent):
     def save(self, *args, **kwargs):
         if self.is_spam():
             self.author.suspend()
+            self.delete()
             return False
 
         if not self.id:
