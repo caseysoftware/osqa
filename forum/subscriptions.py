@@ -7,6 +7,8 @@ from forum.utils.mail import send_template_email
 from django.utils.translation import ugettext as _
 from forum.actions import AskAction, AnswerAction, CommentAction, AcceptAnswerAction, UserJoinsAction, QuestionViewAction
 from forum import settings
+from django.contrib import messages
+from forum import settings, REQUEST_HOLDER
 from django.db.models import Q, F
 
 def create_subscription_if_not_exists(question, user):
@@ -174,8 +176,8 @@ QuestionViewAction.hook(question_viewed)
 #    if created:
 #        q_author = instance.question.author
 #        found_match = False
-#        #print 'going through %d messages' % q_author.message_set.all().count()
-#        for m in q_author.message_set.all():
+#        #print 'going through %d messages' % messages.count()
+#        for m in messages:
 ##            #print m.message
 # #           match = record_answer_event_re.search(m.message)
 #            if match:
@@ -193,6 +195,6 @@ QuestionViewAction.hook(question_viewed)
 #            msg = u"You have received a <a href=\"%s?sort=responses\">new response</a>."\
 #                    % q_author.get_profile_url()
 #
-#            q_author.message_set.create(message=msg)
+#            messages.info(REQUEST_HOLDER.request, message=msg)
 #
 #post_save.connect(record_answer_event, sender=Answer)

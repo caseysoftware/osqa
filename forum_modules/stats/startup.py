@@ -7,6 +7,7 @@ from xml.dom.minidom import parse, parseString
 from xml.parsers.expat import ExpatError
 from forum.modules import ui, decorate
 from forum.settings import VCS_REVISION
+from django.contrib import messages
 from django.contrib.auth.middleware import AuthenticationMiddleware
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.encoding import smart_str
@@ -41,10 +42,10 @@ def process_request(result, self, request):
                 # add it. That's why first of all we're going the check if it is there.
                 try:
                     # If the message doesn't exist in the RelatedManager ObjectsDoesNotExist is going to be raised.
-                    request.user.message_set.all().get(message=message_body)
+                    messages.warning(REQUEST_HOLDER.request, message=message_body)
                 except ObjectDoesNotExist:
                     # Let's create the message.
-                    request.user.message_set.create(message=message_body)
+                    messages.error(REQUEST_HOLDER.request, message=message_body)
                 except:
                     pass
     except ExpatError:
