@@ -14,15 +14,7 @@ class RecaptchaResponse(object):
 def displayhtml (public_key):
 
     return """
-    <div id="recaptcha_field"></div>
-    <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
-
-    <script type="text/javascript">
-         $(function(){
-             Recaptcha.create("%(PublicKey)s", 'recaptcha_field', {
-             theme: "red"});
-         });
-    </script>
+    <div class="g-recaptcha" data-sitekey="6LduhFAUAAAAALSAedOBurjIsSjdM7SVAVJwVcsX"></div>
 
 """ % {
         'PublicKey' : public_key,
