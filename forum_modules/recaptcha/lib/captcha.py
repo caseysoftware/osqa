@@ -21,13 +21,11 @@ def displayhtml (public_key):
         }
 
 
-def submit (recaptcha_challenge_field,
-            recaptcha_response_field,
+def submit (recaptcha_response_field,
             private_key,
             remoteip):
 
-    if not (recaptcha_response_field and recaptcha_challenge_field and
-            len (recaptcha_response_field) and len (recaptcha_challenge_field)):
+    if not (recaptcha_response_field and len (recaptcha_response_field)):
         return RecaptchaResponse (is_valid = False, error_code = 'incorrect-captcha-sol')
 
 
@@ -37,9 +35,8 @@ def submit (recaptcha_challenge_field,
         return s
 
     params = urllib.urlencode ({
-        'privatekey': encode_if_necessary(private_key),
+        'secret': encode_if_necessary(private_key),
         'remoteip' :  encode_if_necessary(remoteip),
-        'challenge':  encode_if_necessary(recaptcha_challenge_field),
         'response' :  encode_if_necessary(recaptcha_response_field),
         })
 
